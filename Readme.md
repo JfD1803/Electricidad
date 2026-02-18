@@ -1,0 +1,2 @@
+Este proyecto tiene como finalidad realizar una aplicacion que sea capaz de realizar calculos electricos bajo la normativa NTC2050 y RETIE.
+Para poder realizar balances de cargas, agregar datos elementos por circuito carga por elemento divir los circuitos por, circuitos de potencia, iluminacion y circuitos especiales 

@@ -1,21 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculos Eléctricos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/output.css') }}">
 </head>
-<body class="bg-blue-500">
-    <section>
-        <h1 class="font-Arial text-center">Aplicacion para generar circuitos electricos</h1>
-        <p class="font-Tahoma text-sm mt-6 text-left max-w-[900px] mx-auto text-black/70">
-                    Somos una empresa especializada en el diseño construcción diagnóstico de instalaciones elécricas de media y baja tensión.
-                    Ofrecemos soluciones integrales en sistemas de iluminación, telecomunicaciones y seguridad electrónica, 
-                    con participaciónes en proyectos de ingeniería civil y arquitectura.
-                </p>
+<body class="bg-[url('/static/imagenes/subestacion.jpg')] bg-cover bg-center">
+
+    <section class="text-2xl font-extrabold text-red-600 p-8 rounded-2xl border border-white/20 
+                 bg-white/10 backdrop-blur-md shadow-2xl text-center">
+        <h1 class="text-1xl font-extrabold text-blue-600">Aplicacion para generar circuitos electricos</h1>
+        <p>
+            Aplicacion que se utiliza para realizar cálculos electricos y diseñar circuitos electricos bajo normativa de NTC2050 y RETIE
+        </p>
     </section>
+
+    <section class="min-h-screen w-full flex items-center p-10 object-center">
     
-    
+    <form action="/guardar" method="POST" 
+          class="w-full max-w-md p-8 rounded-2xl border border-white/20 
+                 bg-white/10 backdrop-blur-md shadow-2xl">
+        
+        <h2 class="text-3xl font-bold text-red-600 mb-6">
+            Ingresa datos para cálculos
+        </h2>
+
+        <div class="space-y-4">
+            <div class="flex flex-col">
+                <label class="text-blue-400 text-sm font-medium mb-1">Distancia</label>
+                <input type="text" name="longitud" placeholder="Longitud del circuito"
+                       class="bg-white/10 border border-white/20 rounded-lg p-2 text-white placeholder:text-black/40 focus:bg-white/20 outline-none transition-all">
+            </div>
+
+            <div class="flex flex-col">
+                <label class="text-blue-400 text-sm font-medium mb-1">Tensión del circuito</label>
+                <input type="number" name="tension" id="input_tension" placeholder="Tensión nominal"
+                       class="bg-white/10 border border-white/20 rounded-lg p-2 text-white placeholder:text-black/40 focus:bg-white/20 outline-none transition-all">
+                       <span id="tipo_sistema" class="text-xs font-bold mt-1 px-2 py-0.5 rounded-full w-fit hidden"></span>
+            </div>
+
+            <div class="flex flex-col">
+                <label class="text-blue-400 text-sm font-medium mb-1">Carga del circuito</label>
+                <input type="text" name="carga_w" placeholder="Carga en W"
+                       class="bg-white/10 border border-black/20 rounded-lg p-2 text-black placeholder:text-black/40 focus:bg-white/20 outline-none transition-all">
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-red-500 hover:bg-red-300 text-white font-bold py-3 rounded-lg mt-4 transition-colors">
+                Guardar datos
+            </button>
+
+            {% if result %}
+            <div class="mt-4 p-3 bg-black/20 rounded-lg">
+                <p class="text-white text-center">Corriente: <span class="font-bold text-blue-300">{{result}} A</span></p>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+</section>
+        <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
 </body>
-</html>
+</html> 
