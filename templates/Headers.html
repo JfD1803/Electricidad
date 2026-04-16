@@ -1,0 +1,169 @@
+<header
+    id="pricipal-header"
+    class="fixed top-0 left-0 w-full  z-50 transition-all duration-300 ease-in-out backdrop-blur-md bg-white/20 border border-white/20 shadow-2xl rounded-lg"
+>
+ <div 
+    id="contenedor-header" 
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 transition-all duration-300 ease-in-out"
+  >
+    <div class="flex justify-between items-center h-16 md:h-24">
+
+      <a href="{{ url_for('hello') }}" class="z-25 rounded-lg border-1 border-black-600">
+        <img 
+          src="{{ url_for('static', filename='imagenes/transformador.png') }}"
+          alt="Logo App Web" 
+          id="LogoApp" 
+          class="h-16 w-24 md:h-24 object-contain cursor-pointer transition-transform hover:scale-95 rounded-lg overflow-hidden inline-block w-fit"  
+        />
+        <span class="absolute inset-0 flex items-center justifity-center opacity-0 group-hover-opacity-100 text-white font-bold">
+
+        </span>
+      </a>   
+
+      <button 
+        id="menu-btn" 
+        class="md:hidden z-50 flex flex-col justify-between w-8 h-5 focus:outline-none"
+      >
+        <span id="line1" class="w-full h-1 bg-white rounded-lg transition-all duration-300 origin-center"></span>
+        <span id="line2" class="w-full h-1 bg-white rounded-lg transition-all duration-300"></span>
+        <span id="line3" class="w-full h-1 bg-white rounded-lg transition-all duration-300 origin-center"></span>
+      </button>
+
+      
+      <nav
+        id="navegacion"
+        class="
+          fixed top-0 left-0 w-full h-screen
+          bg-white
+          flex flex-col items-center
+          pt-28 space-y-8
+          text-black text-xl font-bold
+          overflow-y-auto
+          transition-transform duration-300
+          translate-x-full
+
+          md:relative
+          md:w-auto
+          md:h-auto
+          md:flex-row
+          md:items-center
+          md:space-y-0 md:space-x-6
+          md:pt-0
+          md:bg-transparent
+          md:text-sm
+          md:translate-x-0
+          md:overflow-visible
+          md:text-white
+        "
+      >
+
+        <a href="{{url_for('circuitos')}}" class="nav-link hover:text-red-700 transition">Circuitos</a>
+        <a href="{{(url_for('disenos'))}}" class="nav-link hover:text-red-700 transition">Diseños</a>
+        <a href="{{url_for('memorias')}}" class="nav-link hover:text-red-700 transition">Memorias de calculo</a>
+      </nav>
+
+    </div>  
+</header>
+
+
+
+<style>
+  .nav-link {
+      position: relative;
+      text-decoration: none;
+      display: inline-block;
+      padding-bottom: 4px;
+  }
+  
+  .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background-color: #dc2626; /* Rojo de Mecacontrol */
+      transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+      transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after {
+      width: 100%;
+  }
+  
+  .nav-link {
+      transition: color 0.3s ease-in-out;
+  } 
+</style>
+
+<script>
+  // 1. Selección corregida
+  const header = document.getElementById("principal-header");
+  const content = document.getElementById("contenedor-header");
+  const navss = document.getElementById("navegacion");
+  const menuBtn = document.getElementById("menu-btn");
+  
+  const line1 = document.getElementById("line1");
+  const line2 = document.getElementById("line2");
+  const line3 = document.getElementById("line3");
+
+  function actualizarIconoMovil(isScrolled, isOpen) {
+    if (!line1) return;
+    const lines = [line1, line2, line3];
+    lines.forEach(line => {
+      if (isOpen) {
+        line.classList.remove("bg-white");
+        line.classList.add("bg-black");
+      } else {
+        if (isScrolled) {
+          line.classList.remove("bg-white");
+          line.classList.add("bg-black");
+        } else {
+          line.classList.remove("bg-black");
+          line.classList.add("bg-white");
+        }
+      }
+    });
+  }
+
+  window.addEventListener("scroll", () => {
+    const isScrolled = window.scrollY > 0;
+    const isMobileMenuOpen = navss.classList.contains("translate-x-0");
+
+    content.classList.toggle("py-2", isScrolled);
+    content.classList.toggle("py-6", !isScrolled);
+    
+    // Cambiamos clases de Tailwind
+    if (isScrolled) {
+        header.classList.add("bg-white/70", "backdrop-blur-md", "shadow-md");
+        header.classList.remove("bg-transparent");
+        navss.classList.add("md:text-black");
+        navss.classList.remove("md:text-white");
+    } else {
+        header.classList.remove("bg-white/70", "backdrop-blur-md", "shadow-md");
+        header.classList.add("bg-transparent");
+        navss.classList.remove("md:text-black");
+        navss.classList.add("md:text-white");
+    }
+
+    actualizarIconoMovil(isScrolled, isMobileMenuOpen);
+  });
+
+  if (menuBtn) {
+    menuBtn.addEventListener("click", () => {
+      const isNowOpen = navss.classList.toggle("translate-x-0");
+      navss.classList.toggle("translate-x-full", !isNowOpen);
+      
+      const isScrolled = window.scrollY > 0;
+
+      // Animación de la X
+      line1.classList.toggle("rotate-45");
+      line1.classList.toggle("translate-y-2"); 
+      line2.classList.toggle("opacity-0");
+      line3.classList.toggle("-rotate-45");
+      line3.classList.toggle("-translate-y-2");
+
+      actualizarIconoMovil(isScrolled, isNowOpen);
+    });
+  }
+</script>

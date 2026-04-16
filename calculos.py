@@ -20,8 +20,9 @@ def corriente(tension_v, carga_w, factor_potencia=0.9):
     print(f"El resultado es: {resultado} A")
     return resultado
     
-#def caidavoltaje(distancia_circuito, impedancia):
-#        if distancia_circuito == 0: return 0
-#       caida = ((distancia_circuito*impedancia)/1000)
-#        print (f"Caida de tension del circuito: {caida}")
-#        return caida
+def caidavoltaje(distancia_circuito, impedancia, corriente, es_trifasico=False):
+        if distancia_circuito == 0: return 0
+        constante = 1.732 if es_trifasico else 2
+        caida = ((constante * distancia_circuito * impedancia * corriente)/1000)
+        print (f"Caida de tension del circuito: {caida}")
+        return caida

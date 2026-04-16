@@ -22,6 +22,7 @@
     "tailwindcss": "^4.1.18"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.18"
+    "@tailwindcss/cli": "^4.1.18",
+    "vercel": "^50.18.2"
   }
 }

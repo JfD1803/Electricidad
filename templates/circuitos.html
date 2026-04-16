@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mecatronic{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/output.css') }}">
+</head>
+<body class="bg-gray-50">
+
+    {% include 'Headers.html' %}
+
+    <main class="pt-24">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-blue-800 text-white p-8 mt-10">
+        <p class="text-center">© 2026 App de Ingeniería Electrica</p>
+    </footer>
+
+</body>
+</html>

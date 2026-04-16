@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             //Lógica de tensión por debajo de 120v
 
-        if(v < 120 && v >= 1) {
-            badgeSistema.textContent = '📱 SISTEMA ELECTRONICO O FUENTE';
-                badgeSistema.className = 'text-[12px] font-bold mt-1 px-2 py-0.5 rounded-full w-fit bg-yellow-600 text-black shadow-sm';
-        }
+            if(v < 120 && v >= 1) {
+                badgeSistema.textContent = '📱 SISTEMA ELECTRONICO O FUENTE';
+                    badgeSistema.className = 'text-[12px] font-bold mt-1 px-2 py-0.5 rounded-full w-fit bg-yellow-600 text-black shadow-sm';
+            }
         });
     }
-});
+})
